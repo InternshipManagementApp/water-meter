@@ -1,0 +1,61 @@
+:root {
+    
+    --ThirdColor: #02643f;
+
+}
+
+.main_partHome {
+    width: 94%;
+    height: 100%;
+    background-color: var(--SecondaryColor);
+    border-radius: 10px;
+    box-shadow: 0 0 12px black;
+    padding: 2%;
+    margin-left: 3%;
+    margin: 3% 3%;
+    color: rgb(187, 65, 65);
+}
+
+.main_partHome .home_title {
+    background-color: var(--SecondaryColor);
+    font-size: 28pt;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    margin-bottom: 5%;
+    display: block;
+    color: var(--blackColor);
+}
+
+.main_partHome .information{
+    background-color: var(--SecondaryColor);
+    font-size: 20pt;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    margin-bottom: 5%;
+    color: var(--blackColor);
+}
+
+.main_partHome .header {
+    height: 50px;
+    width: 900px;
+    background: var(--ThirdColor);
+    padding: 10px 30px; 
+    margin: 0 auto;
+}
+
+.main_partHome .header .notification_title{
+    background-color: var(--ThirdColor);
+    font-size: 22pt;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--whiteColor);
+}
+
+.main_partHome .notifications{
+    height: 500px;
+    width: 900px;
+    background: var(--PrimaryColor);
+    padding: 10px 30px; 
+    margin: 0 auto;
+    overflow: scroll;
+}
+
