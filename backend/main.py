@@ -6,11 +6,22 @@ from api.month import initializeTable
 from models.model import Base, Month
 from database import engine, getDb
 from sqlalchemy import event
+from fastapi.middleware.cors import CORSMiddleware
+
 
 #initialization for the Month table
 event.listen(Month.__table__, 'after_create', initializeTable) 
 
 api = FastAPI()
+
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
 
 @api.on_event("startup") #create the database
 def configure():

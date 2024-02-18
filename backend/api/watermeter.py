@@ -1,15 +1,19 @@
-from fastapi import Depends, APIRouter, HTTPException,  UploadFile
+from fastapi import Depends, APIRouter, HTTPException,  UploadFile, File, Form
 from models.model import  MonthRoom
-from models.schema import MonthRoomSchema, InitialDataSchema
+from models.schema import MonthRoomSchema
 from sqlalchemy.orm import Session
 from database import getDb
 from api.room import getRoomByNumber
 from api.month import getMonthByName
-import cv2, numpy , pytesseract
+import cv2, numpy
+import pytesseract
 from configparser import ConfigParser
+from pathlib import Path 
 import logging.config
-import utils
-import imagetotext
+from imagetotext import ImageToText
+from datetime import datetime
+
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Anita\AppData\Local\Programs\Tesseract-OCR\tesseract.exe' 
 
 router = APIRouter()
 
@@ -34,8 +38,10 @@ def addNewConsumption(waterMeter: MonthRoomSchema, db: Session = Depends(getDb))
     return db_waterMeter
 
 @router.post("/uploadWaterMeter")
-def uploadWaterMeterNumber(data: InitialDataSchema, db: Session = Depends(getDb)):
-    imagePath = data.file.filename
+async def uploadWaterMeterNumber(roomNumber: int = Form(...),file: UploadFile = File(...), db: Session = Depends(getDb)):
+    contents = await file.read()
+    nparr = numpy.fromstring(contents, numpy.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     #Read config.ini file
     config_object = ConfigParser()
     config_object.read(Path("config.ini"))
@@ -45,22 +51,26 @@ def uploadWaterMeterNumber(data: InitialDataSchema, db: Session = Depends(getDb)
     logging.info('Starting .. ')
     logging.info('Stop')
     
-    objOfImage = ImageToText(cv2.imread(str(imagePath)))
+    objOfImage = ImageToText(img)
     binaryImage = objOfImage.preprocess()
     
-    cv2.imshow(str(imagePath), binaryImage)
-    cv2.waitKey(0)
     
     text = objOfImage.getNumberFromImage(config)
     
     logging.debug("Logging test...")
     
+    today = datetime.today()
+    month = today.strftime("%B")
+    
+    
     waterMeterNumber = MonthRoomSchema(
-        roomNumber = data.roomNumber,
-        monthName = data.monthName,
+        roomNumber = roomNumber,
+        monthName = month,
         meterNumber = text,
-        date= data.date
+        date= str(today)
         )
+    
+    
     addNewConsumption(waterMeterNumber, db=db)
     
-    return {"msg": "Success uploading!"}
+    return {"msg": "Success uploading!" + text}

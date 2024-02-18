@@ -1,4 +1,5 @@
 import pytesseract, cv2
+import utils
 
 class ImageToText:
   def __init__ (self, image):

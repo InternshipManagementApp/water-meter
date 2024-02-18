@@ -5,3 +5,4 @@ pysimplegui
 fastapi
 pydantic
 sqlalchemy
+python-multipart
