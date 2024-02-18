@@ -6,7 +6,7 @@ import './App.css';
 import './components/Navbar/Navbar.css';
 
 import AccessControlySystem from './components/Pages/AccessControlSystem';
-import Rooms from './components/Pages/Rooms';
+import WaterClock from './components/Pages/WaterClock';
 
 const App = () => (
 
@@ -22,7 +22,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/roads" element={<AccessControlySystem />} />
-            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/waterclock" element={<WaterClock />} />
           </Routes>
         </React.Fragment>
       </BrowserRouter>

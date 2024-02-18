@@ -4,6 +4,7 @@ import Register from './Pages/Register';
 import Navbar from './Navbar/Navbar';
 import HomeGuest from './Pages/HomeGuest';
 import AccessControlSystem from './Pages/AccessControlSystem';
+import WaterClock from './Pages/WaterClock';
 
 export {
   HomeGuest,
@@ -11,5 +12,6 @@ export {
   Login,
   Register,
   Navbar,
-  AccessControlSystem
+  AccessControlSystem,
+  WaterClock
 };

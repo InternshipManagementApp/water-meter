@@ -29,7 +29,7 @@
 
 .main_part .header {
     height: auto;
-    width: 90%;
+    width: 50%;
     background: var(--ThirdColor);
     padding: 10px 30px; 
     margin: 0 auto;
@@ -44,7 +44,7 @@
 
 .main_part .consumptitions{
     height: 550px;
-    width: 90%;
+    width: 50%;
     background: var(--PrimaryColor);
     padding: 10px 30px; 
     margin: 0 auto;
@@ -65,7 +65,7 @@
 
 .main_part .footer {
     height: auto;
-    width: 90%;
+    width: 50%;
     background: var(--ThirdColor);
     padding: 10px 30px; 
     margin: 0 auto;
@@ -83,6 +83,12 @@
     height: 35px;
 }
 
-
+.main_part .inputs {
+    background-color: var(--SecondaryColor);
+    width: 10%;
+    height: auto;
+    margin-bottom: 3%;
+    margin-left: 3%;
+  }
 
 

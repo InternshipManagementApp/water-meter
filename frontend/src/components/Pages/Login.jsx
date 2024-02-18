@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import '../Design/login.css';
 
@@ -7,29 +7,28 @@ const Login = () => {
     const [pass, setPass] = useState('');
     const [user, setUser] = useState('');
 
-    //API operation - GET method
-    useEffect( () => {
-      users()
-    }, []);
-
-    const users = async () => {
-      const responce = await fetch('https://localhost:7110/api/User/allUsers');
-      setUser(await responce.json())
-    }
-
     //to navigate with the given URL
     const navigate = useNavigate();
-    function doStuff(id){navigate('/'+id, { replace: true })};
   
-    //what happen after button click - check if the email and password is correct
+    //what happen after button click - login if the email and the password are corrext
     const handleSubmit = async (e) => {
       e.preventDefault();
-      let value = user.find(data => data.email === email && data.password === pass)
-      if (value) {
-        doStuff(value.userId);
-      } else {
-        alert("Incorrect email or password!");
-      }
+      await fetch('https://localhost:7110/api/User/'+email+'/'+pass)
+      .then((response) => {
+        if(response.status === 200)
+        {
+          response.json().then((data) => {setUser(data);})
+          navigate('/' + user.UserId, { replace: true })
+          alert("Hi again here!");
+        }
+        else
+        {
+          alert("Invalid email or password");
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+     });
     }
 
     return (
