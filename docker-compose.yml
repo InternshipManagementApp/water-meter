@@ -3,10 +3,11 @@ services:
   backend:
     build:
       context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     volumes:
       - ./backend:/app/backend # mount the backend folder to the container
 

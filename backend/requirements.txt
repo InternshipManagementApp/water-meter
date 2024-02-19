@@ -2,7 +2,8 @@ pytesseract
 opencv-python
 numpy
 pysimplegui
-fastapi
 pydantic
 sqlalchemy
 python-multipart
+fastapi
+uvicorn
