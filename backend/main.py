@@ -1,6 +1,7 @@
 from fastapi import  FastAPI, HTTPException
 from api.room import router as room_router
 from api.month import router as month_router
+from api.user import router as user_router
 from api.watermeter import router as watermeter_router
 from api.month import initializeTable
 from models.model import Base, Month
@@ -29,6 +30,7 @@ def configure():
     
 api.include_router(room_router, prefix="/room", tags=["room"])
 api.include_router(month_router, prefix="/month", tags=["month"])
+api.include_router(user_router, prefix="/user", tags=["user"])
 api.include_router(watermeter_router, prefix="/watermeter", tags=["monthroom"])
 
 

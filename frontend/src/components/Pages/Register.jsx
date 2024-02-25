@@ -41,7 +41,7 @@ const Register = () => {
         } else {
         
             //POST method
-            await fetch("https://localhost:7110/api/User", {
+            await fetch("http://127.0.0.1:8000/user", {
             method: "POST",
             cache: 'no-cache',
             headers: {
@@ -49,8 +49,8 @@ const Register = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: fullName,
-                type: type,
+                userName: fullName,
+                personType: type,
                 email: email,
                 password: pass1,
                 telephone: telephoneNumber,

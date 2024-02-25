@@ -4,7 +4,7 @@
 
 }
 
-.main_part {
+.main_partWaterClock {
     width: 94%;
     height: 100%;
     background-color: var(--SecondaryColor);
@@ -16,7 +16,7 @@
     color: rgb(187, 65, 65);
 }
 
-.main_part .page_title {
+.main_partWaterClock .waterclock_title {
     background-color: var(--SecondaryColor);
     font-size: 28pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -27,7 +27,7 @@
 }
 
 
-.main_part .header {
+.main_partWaterClock .header {
     height: auto;
     width: 50%;
     background: var(--ThirdColor);
@@ -35,14 +35,14 @@
     margin: 0 auto;
 }
 
-.main_part .header .month_title{
+.main_partWaterClock .header .month_title{
     background-color: var(--ThirdColor);
     font-size: 22pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: var(--whiteColor);
 }
 
-.main_part .consumptitions{
+.main_partWaterClock .consumptitions{
     height: 550px;
     width: 50%;
     background: var(--PrimaryColor);
@@ -53,17 +53,19 @@
     align-items: center;
 }
 
-.main_part .consumptition .consumptition_table{
+.main_partWaterClock .consumptition .consumptition_table{
     width: 100%;
     height: 100%;
 }
-.main_part .consumptitions .consumptition_table tr, th{
+.main_partWaterClock .consumptitions .consumptition_table tr, th, td{
     
     border: 1px solid black;
     padding: 10px;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.main_part .footer {
+.main_partWaterClock .footer {
     height: auto;
     width: 50%;
     background: var(--ThirdColor);
@@ -71,24 +73,58 @@
     margin: 0 auto;
 }
 
-.main_part .footer input{
+.main_partWaterClock .footer input{
     width: 20%;
     height: 35px;
     display:block;
     margin:0 auto;
 }
 
-.main_part .footer button{
+.main_partWaterClock .footer button{
     width:10%;
     height: 35px;
 }
 
-.main_part .inputs {
+.main_partWaterClock .inputs {
     background-color: var(--SecondaryColor);
-    width: 10%;
+    width: 30%;
     height: auto;
     margin-bottom: 3%;
     margin-left: 3%;
   }
+  .main_partWaterClock .inputs input {
+    width: 100%;
+    height: 100%;
+    border: 2px solid ivory;
+    padding: 15px 20px;
+    margin-left: 30px;
+    border-radius: 30px;
+    background: transparent;
+    outline: none;
+    transition: .3s;
+    color: var(--whiteColor);
+    background-color: var(--PrimaryColor);
+  }
+h2, h3{
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.main_partWaterClock .inputs .btnUpload{
+    display: block;
+      width: 50%;
+      padding: 10px;
+      text-align: center;
+      border: none;
+      background: var(--PrimaryColor);
+      color: var(--whiteColor);
+      font-size: 16pt;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      outline: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 3%;
+      margin-left: 30%;
+}
 
 

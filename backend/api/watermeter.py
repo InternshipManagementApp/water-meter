@@ -13,7 +13,7 @@ import logging.config
 from imagetotext import ImageToText
 from datetime import datetime
 
-#pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Anita\AppData\Local\Programs\Tesseract-OCR\tesseract.exe' 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Anita\AppData\Local\Programs\Tesseract-OCR\tesseract.exe' 
 
 router = APIRouter()
 
@@ -56,7 +56,7 @@ async def uploadWaterMeterNumber(roomNumber: int = Form(...),file: UploadFile = 
     
     
     text = objOfImage.getNumberFromImage(config)
-    
+    text = text.replace("\n", "")
     logging.debug("Logging test...")
     
     today = datetime.today()
@@ -69,7 +69,6 @@ async def uploadWaterMeterNumber(roomNumber: int = Form(...),file: UploadFile = 
         meterNumber = text,
         date= str(today)
         )
-    
     
     addNewConsumption(waterMeterNumber, db=db)
     

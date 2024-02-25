@@ -13,7 +13,7 @@ const Login = () => {
     //what happen after button click - login if the email and the password are corrext
     const handleSubmit = async (e) => {
       e.preventDefault();
-      await fetch('https://localhost:7110/api/User/'+email+'/'+pass)
+      await fetch('http://127.0.0.1:8000/user/'+email+'/'+pass)
       .then((response) => {
         if(response.status === 200)
         {

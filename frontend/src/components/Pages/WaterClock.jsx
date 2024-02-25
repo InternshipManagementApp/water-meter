@@ -1,9 +1,18 @@
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import '../Design/waterclock.css';
 
 const WaterClock = () => {
     const [roomNumber, setRoomNumber] = useState('');
     const [file, setFile] = useState();
+    const [consumptition, SetConsumptition] = useState([]);
+
+    useEffect( () => {
+      consumptitionFromAPI();
+    }, []);
+    const consumptitionFromAPI = async () => {
+      const responce = await fetch('http://127.0.0.1:8000/watermeter');
+      SetConsumptition(await responce.json());
+    }
 
     function handleChange(e) {
         console.log(e.target.files);
@@ -28,17 +37,16 @@ const WaterClock = () => {
         }).catch(err => err); 
     }
   return (
-    <div className="main_part">
-      <p className="page_title">Semester 2023/2024</p>
+    <div className="main_partWaterClock">
+      <p className="waterclock_title">Semester 2023/2024</p>
       <div className="upload">
         <form onSubmit={handleSubmit} className="uploadNumber">
               <div className="inputs">
+                  <h2>Upload the consumptition:</h2>
                   <input value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} type="text" name="roomnumber" id="roomnumber" placeholder="Room Number" required/>
-              </div>
-              <h2>Add Image:</h2>
-              <input type="file" onChange={handleChange} />
-              <div className="inputs">
-                  <button name="submit" className="btnImg">Send!</button>
+                  <h3>Add Image:</h3>
+                  <input  type="file" onChange={handleChange} /> 
+                  <button name="submit" className="btnUpload">Send!</button>
               </div>
         </form>
       </div>
@@ -51,6 +59,12 @@ const WaterClock = () => {
                     <th>Room number</th>
                     <th>Consumptition</th>
                 </tr>
+                {consumptition.map(c => (
+                <tr>
+                  <td>{c.roomNumber}</td>
+                  <td>{c.meterNumber}</td>
+                </tr>
+                ))}
             </table>
       </div>
       <div className="footer">

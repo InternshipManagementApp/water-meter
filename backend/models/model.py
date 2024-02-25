@@ -28,3 +28,13 @@ class Month(Base):
     monthName = Column(String(25), index=True)
     rooms = relationship("Room", secondary="monthroom", back_populates='months')
     
+class User(Base):
+    __tablename__ = "users"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    userName = Column(String, index=True)
+    personType = Column(String, index=True)
+    email = Column(String, index=True)
+    password = Column(String, index=True)
+    telephone = Column(String, index=True)
+    
