@@ -5,14 +5,41 @@ const WaterClock = () => {
     const [roomNumber, setRoomNumber] = useState('');
     const [file, setFile] = useState();
     const [consumptition, SetConsumptition] = useState([]);
+    const [constumptitionPair, SetConstumptitionPair] = useState([]);
 
     useEffect( () => {
       consumptitionFromAPI();
-    }, []);
+      createPairRoomNumberAndCons();
+    }, [consumptition]);
+
+
     const consumptitionFromAPI = async () => {
       const responce = await fetch('http://127.0.0.1:8000/watermeter');
       SetConsumptition(await responce.json());
+      
     }
+    const getRoomById = async (id) => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/room/'+id); 
+        const data = await response.json();
+        return data.roomNumber; 
+      } catch (error) {
+        console.error(`Hiba a szoba lekérésekor az azonosító alapján (${id}):`, error);
+        return null;
+      }
+    };
+
+    const createPairRoomNumberAndCons = async () => {
+      const pairs = [];
+      for (const cons of consumptition) {
+        const room = await getRoomById(cons.roomId);
+        pairs.push({
+          roomNumber: room,
+          number: cons.meterNumber,
+        });
+      }
+      SetConstumptitionPair(pairs);
+    };
 
     function handleChange(e) {
         console.log(e.target.files);
@@ -59,10 +86,10 @@ const WaterClock = () => {
                     <th>Room number</th>
                     <th>Consumptition</th>
                 </tr>
-                {consumptition.map(c => (
+                {constumptitionPair.map(c => (
                 <tr>
                   <td>{c.roomNumber}</td>
-                  <td>{c.meterNumber}</td>
+                  <td>{c.number}</td>
                 </tr>
                 ))}
             </table>

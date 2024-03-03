@@ -20,8 +20,8 @@ def addNewRoom(room: RoomSchema, db: Session = Depends(getDb)):
     return db_room
 
 @router.get("/{id}")
-def getRoomById(roomId: int, db: Session = Depends(getDb)):
-    room = db.query(Room).filter(Room.id == roomId).first()
+def getRoomById(id: int, db: Session = Depends(getDb)):
+    room = db.query(Room).filter(Room.id == id).first()
     if room is None:
         raise HTTPException(status_code=404, detail="Room not found")
     return room
