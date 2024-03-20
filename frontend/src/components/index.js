@@ -5,6 +5,7 @@ import Navbar from './Navbar/Navbar';
 import HomeGuest from './Pages/HomeGuest';
 import AccessControlSystem from './Pages/AccessControlSystem';
 import WaterClock from './Pages/WaterClock';
+import ImageCropper from './Pages/ImageCropper';
 
 export {
   HomeGuest,
@@ -13,5 +14,6 @@ export {
   Register,
   Navbar,
   AccessControlSystem,
-  WaterClock
+  WaterClock,
+  ImageCropper
 };
