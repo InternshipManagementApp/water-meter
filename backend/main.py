@@ -15,14 +15,17 @@ event.listen(Month.__table__, 'after_create', initializeTable)
 
 api = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+]
+
 api.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=['*'],
-    allow_headers=['*'],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-
 
 @api.on_event("startup") #create the database
 def configure():

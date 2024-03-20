@@ -37,7 +37,7 @@ def getUserByEmailAndPassword(email:str, password:str, db: Session = Depends(get
         raise HTTPException(status_code=404, detail="The password is incorrect")
     return user
     
-@router.put("/")
+@router.put("/{userId}")
 def updateUser(userId: int, newUser: UserSchema, db: Session = Depends(getDb)):
     user = db.query(User).filter(User.id == userId).first()
     if user is None:

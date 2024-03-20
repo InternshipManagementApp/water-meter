@@ -17,3 +17,6 @@ class UserSchema(BaseModel):
     email : Optional[str] = None
     password : Optional[str] = None
     telephone : Optional[str] = None
+    
+class WaterMeterUpdate(BaseModel):
+    meterNumber: str
