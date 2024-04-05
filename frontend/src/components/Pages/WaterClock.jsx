@@ -4,9 +4,15 @@ import '../Design/waterclock.css';
 export default function WaterClock(){
   const [consumptition, SetConsumptition] = useState([]);
   const [constumptitionPair, SetConstumptitionPair] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
+  const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
+  
   const consumptitionFromAPI = useCallback(async () => {
-    const response = await fetch('http://127.0.0.1:8000/watermeter');
+    const date = new Date();
+    setCurrentDate(date);
+    const currentMonth = date.toLocaleString('default', { month: 'long' })
+    const response = await fetch('http://127.0.0.1:8000/watermeter/'+ currentMonth);
     SetConsumptition(await response.json());
   }, [SetConsumptition])
 
@@ -38,11 +44,15 @@ export default function WaterClock(){
     }
   };
 
+  const handleMonthChange = (event) => {
+    setSelectedMonth(parseInt(event.target.value));
+  };
+
   return (
     <div className="main_partWaterClock">
-      <p className="waterclock_title">Semester 2023/2024</p>
+      <p className="waterclock_title">Semester {currentDate.getFullYear() - 1}/{currentDate.getFullYear()}</p>
       <div className="header">
-        <p className="month_title">September</p>
+        <p className="month_title">{currentDate.toLocaleString('default', { month: 'long' })}</p>
       </div>
       <div className="consumptitions">
             <table className="consumptition_table">
@@ -60,8 +70,20 @@ export default function WaterClock(){
       </div>
       <div className="footer">
         <input type="text" placeholder="Search.."/>
-        <button >Previous</button>
-        <button >Next</button>
+        <select value={selectedMonth} onChange={handleMonthChange}>
+          <option value={0}>January</option>
+          <option value={1}>February</option>
+          <option value={2}>March</option>
+          <option value={3}>April</option>
+          <option value={4}>May</option>
+          <option value={5}>June</option>
+          <option value={6}>July</option>
+          <option value={7}>August</option>
+          <option value={8}>September</option>
+          <option value={9}>October</option>
+          <option value={10}>November</option>
+          <option value={11}>December</option>
+        </select>
       </div>
     </div>
   )

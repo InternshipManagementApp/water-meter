@@ -22,6 +22,14 @@ router = APIRouter()
 def getAllNumbers(db: Session = Depends(getDb)):
     datas = db.query(MonthRoom).all()
     return datas
+
+@router.get("/getByMonth")
+def getDataByMonth(monthName: str, db: Session = Depends(getDb)):
+    month = getMonthByName(monthName,db=db)
+    data = db.query(MonthRoom).filter(MonthRoom.monthId == month.id).all()
+    if not data:
+       raise HTTPException(status_code=404, detail="No data in the month.")
+    return data  
     
 @router.post("/")
 def addNewConsumption(waterMeter: MonthRoomSchema, db: Session = Depends(getDb)):
