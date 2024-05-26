@@ -23,7 +23,7 @@ def getAllNumbers(db: Session = Depends(getDb)):
     datas = db.query(MonthRoom).all()
     return datas
 
-@router.get("/getByMonth")
+@router.get("/{monthName}")
 def getDataByMonth(monthName: str, db: Session = Depends(getDb)):
     month = getMonthByName(monthName,db=db)
     data = db.query(MonthRoom).filter(MonthRoom.monthId == month.id).all()
@@ -88,11 +88,11 @@ async def uploadWaterMeterNumber(roomNumber: str = Form(...),file: UploadFile = 
 def updateWaterMeter(roomNumber: str, monthName: str, newCons: WaterMeterUpdate, db: Session = Depends(getDb)):
     room = getRoomByNumber(int(roomNumber), db=db) 
     month = getMonthByName(monthName,db=db)
-    cons = db.query(MonthRoom).filter(MonthRoom.roomId == room.id and MonthRoom.monthId == month.id).first()
+    cons = db.query(MonthRoom).filter_by(roomId=room.id, monthId=month.id).first()
     if cons is None:
-        raise HTTPException(status_code=404, detail="Consumptition not found")
+        raise HTTPException(status_code=404, detail="Consumption not found")
     if newCons.meterNumber is not None:
         cons.meterNumber = newCons.meterNumber
     db.commit()
-    cons = db.query(MonthRoom).filter(MonthRoom.roomId == room.id and MonthRoom.monthId == month.id).first()
+    cons = db.query(MonthRoom).filter_by(roomId=room.id, monthId=month.id).first()
     return cons
