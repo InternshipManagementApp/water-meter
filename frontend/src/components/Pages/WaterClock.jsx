@@ -2,21 +2,18 @@ import React , {useCallback, useEffect, useState} from 'react';
 import '../Design/waterclock.css';
 
 export default function WaterClock(){
-  const [consumptition, SetConsumptition] = useState([]);
-  const [constumptitionPair, SetConstumptitionPair] = useState([]);
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const [constumptitionPair, setConstumptitionPair] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
   
-  const consumptitionFromAPI = useCallback(async () => {
+  const consumptitionFromAPI = async () => {
     const date = new Date();
     setCurrentDate(date);
-    const currentMonth = date.toLocaleString('default', { month: 'long' })
-    const response = await fetch('http://127.0.0.1:8000/watermeter/'+ currentMonth);
-    SetConsumptition(await response.json());
-  }, [SetConsumptition])
+    const response = await fetch('http://127.0.0.1:8000/watermeter/'+ months[selectedMonth]);
 
-  const createPairRoomNumberAndCons = useCallback(async () => {
+    const consumptition = await response.json()
     const pairs = [];
     for (const cons of consumptition) {
       const room = await getRoomById(cons.roomId);
@@ -25,13 +22,12 @@ export default function WaterClock(){
         number: cons.meterNumber,
       });
     }
-    SetConstumptitionPair(pairs);
-  }, [consumptition, SetConstumptitionPair]);
+    setConstumptitionPair(pairs);
+  }
 
   useEffect( () => {
     consumptitionFromAPI();
-    createPairRoomNumberAndCons();
-  }, [consumptitionFromAPI, createPairRoomNumberAndCons]);
+  }, [selectedMonth]);
 
   const getRoomById = async (id) => {
     try {
@@ -52,7 +48,7 @@ export default function WaterClock(){
     <div className="main_partWaterClock">
       <p className="waterclock_title">Semester {currentDate.getFullYear() - 1}/{currentDate.getFullYear()}</p>
       <div className="header">
-        <p className="month_title">{currentDate.toLocaleString('default', { month: 'long' })}</p>
+        <p className="month_title">{months[selectedMonth]}</p>
       </div>
       <div className="consumptitions">
             <table className="consumptition_table">
@@ -69,7 +65,6 @@ export default function WaterClock(){
             </table>
       </div>
       <div className="footer">
-        <input type="text" placeholder="Search.."/>
         <select value={selectedMonth} onChange={handleMonthChange}>
           <option value={0}>January</option>
           <option value={1}>February</option>
